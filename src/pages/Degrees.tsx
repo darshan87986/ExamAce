@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { GraduationCap, MapPin, ChevronRight } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { GraduationCap, ChevronRight, ArrowLeft } from "lucide-react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -13,45 +12,77 @@ interface University {
   location?: string;
 }
 
-const Universities = () => {
+interface Degree {
+  id: string;
+  name: string;
+  code: string;
+  description?: string;
+}
+
+const Degrees = () => {
   const navigate = useNavigate();
-  const [universities, setUniversities] = useState<University[]>([]);
+  const { universityId } = useParams();
+  const [university, setUniversity] = useState<University | null>(null);
+  const [degrees, setDegrees] = useState<Degree[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("Universities component mounted/updated. Fetching universities.");
-    fetchUniversities();
-  }, []);
+    if (universityId) {
+      fetchUniversity();
+      fetchDegrees();
+    }
+  }, [universityId]);
 
-  const fetchUniversities = async () => {
-    console.log("Fetching universities...");
+  const fetchUniversity = async () => {
+    try {
+      console.log("Fetching university with ID:", universityId);
+      const { data, error } = await supabase
+        .from("universities")
+        .select("*")
+        .eq("id", universityId)
+        .eq("is_active", true)
+        .single();
+
+      if (error) throw error;
+      setUniversity(data);
+      console.log("University data:", data);
+    } catch (error) {
+      console.error("Error fetching university:", error);
+    }
+  };
+
+  const fetchDegrees = async () => {
+    console.log("Fetching degrees for university ID:", universityId);
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from("universities" as any)
+        .from("degrees" as any)
         .select("*")
+        .eq("university_id", universityId)
         .eq("is_active", true)
         .order("name");
 
       if (error) throw error;
-      setUniversities((data as any) || []);
-      console.log("Universities fetched successfully:", data);
+      console.log("Degrees data:", data);
+      setDegrees((data as any) || []);
     } catch (error) {
-      console.error("Error fetching universities:", error);
+      console.error("Error fetching degrees:", error);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleDegreeSelect = (degree: Degree) => {
+    navigate(`/universities/${universityId}/degrees/${degree.id}`);
+  };
 
-  const handleUniversitySelect = (university: University) => {
-    console.log("Navigating to degrees for university ID:", university.id);
-    navigate(`/universities/${university.id}`);
+  // Redirects the user back to the universities page
+  const handleBackToUniversities = () => {
+    navigate(-1);
   };
 
   const FooterComponent = () => (
     <footer className="bg-primary border-t py-12 mt-16">
-
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
@@ -124,18 +155,33 @@ const Universities = () => {
           <div className="flex items-center gap-2 text-sm">
             <Link to="/" className="text-muted-foreground hover:text-primary">Home</Link>
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            <span className="text-primary font-medium">Universities</span>
+            <Link to="/universities" className="text-muted-foreground hover:text-primary">Universities</Link>
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            <span className="text-primary font-medium">{university?.name}</span>
           </div>
         </div>
       </section>
 
-      {/* Universities View */}
+      {/* Degrees View */}
       <section className="py-16">
         <div className="container mx-auto px-4">
+          {/* <div className="flex items-center gap-4 mb-8">
+            <Button
+              // Button to navigate back to the universities page
+              variant="ghost"
+              onClick={handleBackToUniversities}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Universities
+            </Button>
+          </div> */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Choose Your University</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              {university?.name} - Available Degree Programs
+            </h1>
             <p className="text-lg text-muted-foreground">
-              Select your university to browse available degree programs and resources
+              Select a degree program to browse available semesters and subjects
             </p>
           </div>
           {loading ? (
@@ -154,30 +200,30 @@ const Universities = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {universities.map((university) => (
-                <Card 
-                  key={university.id} 
-                  className="group cursor-pointer bg-gradient-to-br from-white to-gray-50/50 hover:from-white hover:to-primary/5 hover:shadow-2xl transition-all duration-500 hover:scale-105 border-0 shadow-lg hover:shadow-primary/10"
-                  onClick={() => handleUniversitySelect(university)}
+              {degrees.map((degree) => (
+                <Card
+                  key={degree.id}
+                  className="group cursor-pointer bg-gradient-to-br from-white to-gray-50/50 hover:from-white hover:to-secondary/5 hover:shadow-2xl transition-all duration-500 hover:scale-105 border-0 shadow-lg hover:shadow-secondary/10"
+                  onClick={() => handleDegreeSelect(degree)}
                 >
                   <CardHeader className="text-center">
-                    <MapPin className="h-16 w-16 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                    <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{university.code}</CardTitle>
-                    <CardDescription className="text-sm font-medium">{university.name}</CardDescription>
-                    {university.location && (
-                      <Badge variant="outline" className="mx-auto w-fit mt-2 border-primary/30 text-primary">
-                        {university.location}
-                      </Badge>
-                    )}
+                    <GraduationCap className="h-16 w-16 text-secondary-foreground mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                    <CardTitle className="text-xl font-bold group-hover:text-secondary-foreground transition-colors">{degree.code}</CardTitle>
+                    <CardDescription className="text-sm font-medium">{degree.name}</CardDescription>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <Button className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300">
-                      Browse {university.code} Degrees
+                    <Button className="w-full bg-primary from-secondary-foreground to-secondary/90 hover:from-secondary/90 hover:to-secondary shadow-lg hover:shadow-xl transition-all duration-300">
+                      Browse {degree.code} Semesters
                       <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          )}
+          {!loading && degrees.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">No degree programs available for {university?.name}</p>
             </div>
           )}
         </div>
@@ -187,4 +233,4 @@ const Universities = () => {
   );
 };
 
-export default Universities;
+export default Degrees;

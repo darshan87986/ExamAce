@@ -8,6 +8,11 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Universities from "./pages/Universities";
 import NotFound from "./pages/NotFound";
+import Degrees from './pages/Degrees';
+import Semesters from './pages/Semesters';
+import Subjects from './pages/Subjects';
+import SubjectResources from './pages/SubjectResources';
+
 
 const queryClient = new QueryClient();
 
@@ -22,9 +27,10 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/universities" element={<Universities />} />
-          <Route path="/universities/:universityId" element={<Universities />} />
-          <Route path="/universities/:universityId/degrees/:degreeId" element={<Universities />} />
-          <Route path="/universities/:universityId/degrees/:degreeId/semesters/:semesterId" element={<Universities />} />
+          <Route path="/universities/:universityId" element={<Degrees />} />
+          <Route path="/universities/:universityId/degrees/:degreeId" element={<Semesters />} />
+          <Route path="/universities/:universityId/degrees/:degreeId/semesters/:semesterId" element={<Subjects />} />
+          <Route path="/subjects/:subjectId/resources" element={<SubjectResources />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
