@@ -12,7 +12,8 @@ import Degrees from './pages/Degrees';
 import Semesters from './pages/Semesters';
 import Subjects from './pages/Subjects';
 import SubjectResources from './pages/SubjectResources';
-
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+
           <Route path="/universities" element={<Universities />} />
           <Route path="/universities/:universityId" element={<Degrees />} />
           <Route path="/universities/:universityId/degrees/:degreeId" element={<Semesters />} />
