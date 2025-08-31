@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, ChevronDown, ChevronUp, Shield, Mail, Lock, Eye, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Footer from "@/components/Footer";
 
 const PrivacyPolicy = () => {
   useEffect(() => {
-    document.title = "Privacy Policy - ExamAce Vault";
+    document.title = "Privacy Policy - EduMasters";
   }, []);
 
   const [expandedSections, setExpandedSections] = useState<Record<number, boolean>>({
@@ -24,7 +25,7 @@ const PrivacyPolicy = () => {
     {
       title: "1. Introduction",
       icon: <Shield className="h-5 w-5 text-primary mr-2" />,
-      content: "Welcome to ExamAce Vault. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our educational platform. We are committed to protecting your privacy and providing a safe online experience for all users."
+      content: "Welcome to EduMasters. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our educational platform. We are committed to protecting your privacy and providing a safe online experience for all users."
     },
     {
       title: "2. Information We Collect",
@@ -102,7 +103,7 @@ const PrivacyPolicy = () => {
             <div className="bg-primary/10 p-3 rounded-full">
               <GraduationCap className="h-10 w-10 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold text-foreground ml-4">ExamAce Vault</h1>
+            <h1 className="text-4xl font-bold text-foreground ml-4">EduMasters</h1>
           </div>
           <Badge variant="secondary" className="text-sm font-semibold">
             Privacy-First Educational Platform
@@ -163,6 +164,7 @@ const PrivacyPolicy = () => {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
+import Footer from "@/components/Footer";
 
 /* Unsplash images (kept same sources) */
 const BOOK_IMG = "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1";
@@ -189,7 +190,7 @@ const stagger = {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold">ExamAce Vault</h1>
+              <h1 className="text-2xl font-bold">EduMasters</h1>
             </div>
             <nav className="hidden md:flex space-x-6 text-sm">
               <Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</Link>
@@ -216,7 +217,7 @@ const stagger = {
           >
             About{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-500 bg-clip-text text-transparent">
-              ExamAce Vault
+              EduMasters
             </span>
           </motion.h1>
 
@@ -275,7 +276,7 @@ const stagger = {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Making Quality Education Accessible to Everyone</h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                At ExamAce Vault, we believe every student should have free access to accurate exam resources.
+                At EduMasters, we believe every student should have free access to accurate exam resources.
                 We curate, verify and present previous year question papers and model answers so students can prepare efficiently.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
@@ -312,7 +313,7 @@ const stagger = {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Values</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do at ExamAce Vault
+              The principles that guide everything we do at EduMasters
             </p>
           </div>
 
@@ -389,7 +390,7 @@ const stagger = {
             <motion.p
               className="text-lg text-gray-600 mb-6 leading-relaxed"
             >
-              ExamAce Vault was founded by university students who faced the frustrating reality of scattered and paywalled resources.
+              EduMasters was founded by university students who faced the frustrating reality of scattered and paywalled resources.
               Locating accurate past papers, model answers and reliable notes often meant sifting through unorganized PDFs, inconsistent filenames,
               paywalls, or outdated content. We built this platform to make that search simple, fast and free.
             </motion.p>
@@ -399,7 +400,7 @@ const stagger = {
             >
               Common difficulties students face include: fragmented sources across multiple sites, missing answer keys, differing university
               syllabi & paper formats, paywalled archives, poor scan quality, and inconsistent naming — making revision slow and error-prone.
-              ExamAce Vault collects, standardizes and verifies these resources so students spend more time learning and less time searching.
+              EduMasters collects, standardizes and verifies these resources so students spend more time learning and less time searching.
             </motion.p>
 
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8 inline-block text-left shadow-md relative overflow-hidden">
@@ -498,7 +499,7 @@ const stagger = {
           <motion.p
             className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
           >
-            Start your journey to academic excellence today. Access thousands of resources and join students who trust ExamAce Vault for their exam preparation.
+            Start your journey to academic excellence today. Access thousands of resources and join students who trust EduMasters for their exam preparation.
           </motion.p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -513,17 +514,7 @@ const stagger = {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white/95 py-12 border-t border-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <GraduationCap className="h-6 w-6 text-indigo-600" />
-              <span className="text-lg font-bold">ExamAce Vault</span>
-            </div>
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} ExamAce Vault. All rights reserved. Made with ❤️ for students worldwide.</p>
-          </div>
-        </div>
-      </footer>
+     <Footer />
     </div>
   );
 };

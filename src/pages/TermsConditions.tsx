@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, ChevronDown, ChevronUp, CheckCircle, Copyright, Users, UserCheck, AlertTriangle, Target, Link2, Edit3, Mail, BookOpen, FileText, ShieldAlert, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Footer from "@/components/Footer";
 
 const TermsConditions = () => {
   useEffect(() => {
-    document.title = "Terms & Conditions - ExamAce Vault";
+    document.title = "Terms & Conditions - EduMasters";
   }, []);
 
   const [expandedSections, setExpandedSections] = useState<Record<number, boolean>>({
@@ -24,7 +25,7 @@ const TermsConditions = () => {
     {
       title: "1. Acceptance of Terms",
       icon: <CheckCircle className="h-5 w-5 text-primary mr-2" />,
-      content: "Welcome to ExamAce Vault. By accessing or using our website, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not access our services."
+      content: "Welcome to EduMasters. By accessing or using our website, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not access our services."
     },
     {
       title: "2. Educational Use Only",
@@ -65,7 +66,7 @@ const TermsConditions = () => {
       icon: <ShieldAlert className="h-5 w-5 text-primary mr-2" />,
       content: (
         <>
-          <p className="mb-3">The materials on ExamAce Vault are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+          <p className="mb-3">The materials on EduMasters are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
           <p>We do not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on our website or otherwise relating to such materials or on any sites linked to this site.</p>
         </>
       )
@@ -73,7 +74,7 @@ const TermsConditions = () => {
     {
       title: "7. Limitations of Liability",
       icon: <Scale className="h-5 w-5 text-primary mr-2" />,
-      content: "In no event shall ExamAce Vault or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our website."
+      content: "In no event shall EduMasters or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our website."
     },
     {
       title: "8. Accuracy of Materials",
@@ -110,7 +111,7 @@ const TermsConditions = () => {
             <div className="bg-primary/10 p-3 rounded-full">
               <GraduationCap className="h-10 w-10 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold text-foreground ml-4">ExamAce Vault</h1>
+            <h1 className="text-4xl font-bold text-foreground ml-4">EduMasters</h1>
           </div>
           <Badge variant="secondary" className="text-sm font-semibold">
             Educational Resource Platform
@@ -179,6 +180,7 @@ const TermsConditions = () => {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </div>
   );
 };

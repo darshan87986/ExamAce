@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -22,14 +22,8 @@ export const SubscriptionPopup = ({ isOpen, onClose }: SubscriptionPopupProps) =
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  // Debug effect to log prop changes
-  useEffect(() => {
-    console.log('SubscriptionPopup props changed - isOpen:', isOpen);
-  }, [isOpen]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted with email:', email); // Debug log
     
     if (!email.trim()) {
       toast({
@@ -43,11 +37,9 @@ export const SubscriptionPopup = ({ isOpen, onClose }: SubscriptionPopupProps) =
     setIsSubmitting(true);
 
     try {
-      console.log('Attempting to insert email into database...'); // Debug log
       const { error } = await supabase.from("subscribers").insert({ email: email.trim() });
 
       if (error) {
-        console.error('Database error:', error); // Debug log
         if (error.code === '23505') { 
              toast({
                 title: "Already Subscribed",
@@ -58,7 +50,6 @@ export const SubscriptionPopup = ({ isOpen, onClose }: SubscriptionPopupProps) =
             throw error;
         }
       } else {
-         console.log('Successfully inserted email'); // Debug log
          toast({
             title: "Success!",
             description: "You have successfully subscribed to our updates.",
@@ -77,9 +68,6 @@ export const SubscriptionPopup = ({ isOpen, onClose }: SubscriptionPopupProps) =
       setIsSubmitting(false);
     }
   };
-
-  // Debug render
-  console.log('SubscriptionPopup rendering - isOpen:', isOpen);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

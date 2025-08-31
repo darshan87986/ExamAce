@@ -10,13 +10,13 @@ const Footer = () => {
   return (
     <footer className="bg-primary border-t py-12 mt-20">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:text-left text-center">
           {/* Logo + description */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-2 mb-4 justify-center md:justify-start">
               <GraduationCap className="h-6 w-6 text-primary-foreground" />
               <span className="font-bold text-primary-foreground">
-                ExamAce Vault
+                EduMasters
               </span>
             </div>
             <p className="text-white/80 text-sm">
@@ -86,15 +86,13 @@ const Footer = () => {
         {/* Footer bottom */}
         <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60">
           <p className="text-sm">
-            &copy; 2025 ExamAce Vault. All rights reserved.
+            &copy; 2025 EduMasters. All rights reserved.
           </p>
         </div>
       </div>
 
       {/* Subscription popup */}
-      {isPopupOpen && (
-        <SubscriptionPopup onClose={() => setIsPopupOpen(false)} />
-      )}
+      <SubscriptionPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </footer>
   );
 };

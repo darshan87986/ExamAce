@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { CommentSection } from "@/components/CommentSection";
+import Footer from "@/components/Footer";
 
 
 interface Subject {
@@ -158,7 +159,7 @@ const SubjectResources = () => {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <GraduationCap className="h-6 w-6 text-primary-foreground" />
-                <span className="font-bold text-primary-foreground">ExamAce Vault</span>
+                <span className="font-bold text-primary-foreground">EduMasters</span>
               </div>
               <p className="text-white/80 text-sm">
                 Your trusted platform for academic resources and exam preparation materials.
@@ -204,7 +205,7 @@ const SubjectResources = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">ExamAce Vault</h1>
+              <h1 className="text-2xl font-bold text-foreground">EduMasters</h1>
             </div>
             <nav className="hidden md:flex space-x-6">
               <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link>
@@ -327,7 +328,7 @@ const SubjectResources = () => {
 )}
 
 
-      <FooterComponent />
+      <Footer />
     </div>
   );
 };

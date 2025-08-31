@@ -554,7 +554,7 @@ const Index = () => {
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary transition-transform hover:scale-110" />
               <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                ExamAce Vault
+                EduMasters
               </h1>
             </div>
             <nav className="hidden md:flex space-x-6">
@@ -747,7 +747,7 @@ const Index = () => {
       <section ref={featuresRef} className="py-20 bg-gradient-to-b from-blue-50 to-transparent">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Why Choose ExamAce Vault?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Why Choose EduMasters?</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Join thousands of students who trust us for their exam preparation needs
             </p>

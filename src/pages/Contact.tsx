@@ -21,6 +21,7 @@ import {
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from 'emailjs-com';
+import Footer from "@/components/Footer";
 
 const HERO_IMG = "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1";
 const TEAM_IMG = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2";
@@ -125,7 +126,7 @@ const Contact = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold">ExamAce Vault</h1>
+              <h1 className="text-2xl font-bold">EduMasters</h1>
             </div>
             <nav className="hidden md:flex space-x-6 text-sm">
               <Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</Link>
@@ -364,15 +365,7 @@ const Contact = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white/95 py-12 border-t border-gray-100">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <GraduationCap className="h-6 w-6 text-indigo-600" />
-            <span className="text-lg font-bold">ExamAce Vault</span>
-          </div>
-          <p className="text-sm text-gray-500">© {new Date().getFullYear()} ExamAce Vault. All rights reserved. Made with ❤️ for students worldwide.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
