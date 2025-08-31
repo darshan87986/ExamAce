@@ -49,7 +49,7 @@ export const CommentSection = ({ degreeId, degreeName }: CommentSectionProps) =>
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!newComment.trim() || !userName.trim()) {
+    if (!newComment.trim() || !userName.trim() || !userEmail.trim()) {
       toast({
         title: "Error",
         description: "Please fill in all required fields",
@@ -66,7 +66,7 @@ export const CommentSection = ({ degreeId, degreeName }: CommentSectionProps) =>
         .insert({
           degree_id: degreeId,
           user_name: userName.trim(),
-          user_email: userEmail.trim() || null,
+          user_email: userEmail.trim(),
           comment_text: newComment.trim(),
         });
 
@@ -111,9 +111,10 @@ export const CommentSection = ({ degreeId, degreeName }: CommentSectionProps) =>
               />
               <Input
                 type="email"
-                placeholder="Your Email (Optional)"
+                placeholder="Your Email *"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
+                required
                 className="w-full"
               />
             </div>

@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SubscriptionPopup } from './SubscriptionPopup';
 
 const Footer = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   return (
     <footer className="bg-primary border-t py-12 mt-16">
       <div className="container mx-auto px-4">
@@ -38,13 +42,14 @@ const Footer = () => {
             <p className="text-white/80 mb-4 text-sm">
               Stay updated with the latest resources and exam tips.
             </p>
-            <Button className="w-full text-sm bg-white text-primary hover:bg-white/90">Subscribe to Updates</Button>
+            <Button className="w-full text-sm bg-white text-primary hover:bg-white/90" onClick={() => setIsPopupOpen(true)}>Subscribe to Updates</Button>
           </div>
         </div>
         <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60">
           <p className="text-sm">&copy; 2025 EduMaster. All rights reserved.</p>
         </div>
       </div>
+      <SubscriptionPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </footer>
   );
 };
