@@ -155,7 +155,7 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-6xl font-extrabold mb-4"
           >
-            Get in <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-500 bg-clip-text text-transparent">Touch</span>
+            Get in  <span className="text-blue-600">Touch</span>
           </motion.h1>
 
           <motion.p

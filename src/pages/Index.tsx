@@ -8,7 +8,6 @@ import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { CommentSection } from "@/components/CommentSection";
-import Footer from "@/components/Footer"; // Add this line
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Lenis from "@studio-freight/lenis";
@@ -553,10 +552,11 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary transition-transform hover:scale-110" />
-              <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                EduMasters
-              </h1>
+            <h1 className="text-2xl font-bold text-black-600">
+              EduMasters
+            </h1>
             </div>
+            
             <nav className="hidden md:flex space-x-6">
               <Link to="/" className="text-primary font-medium hover:text-primary/80 transition-colors">Home</Link>
               <Link to="/universities" className="text-muted-foreground hover:text-primary transition-colors">Universities</Link>
@@ -577,17 +577,17 @@ const Index = () => {
         </div>
         
         <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="mb-8">
+          {/* <div className="mb-8">
             <div className="inline-flex items-center bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 animate-bounce">
               <Star className="h-4 w-4 mr-2" />
-              {/* Trusted by thousands of students */}
+              Trusted by thousands of students
             </div>
-          </div>
+          </div> */}
           
           <h1 ref={titleRef} className="text-5xl md:text-7xl font-extrabold text-foreground mb-6 leading-tight">
             Your Ultimate
-            <span className="text-primary bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"> Exam Success </span>
-            Platform
+           <span className="text-blue-600">Exam Success</span> 
+              Platform
           </h1>
           
           <p ref={subtitleRef} className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed">
@@ -738,16 +738,13 @@ const Index = () => {
           )}
         </div>
       </section>
-
-
-    
       
 
       {/* Why Choose Us Section */}
       <section ref={featuresRef} className="py-20 bg-gradient-to-b from-blue-50 to-transparent">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Why Choose EduMasters?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Why Choose ExamAce Vault?</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Join thousands of students who trust us for their exam preparation needs
             </p>
@@ -840,9 +837,56 @@ const Index = () => {
         </Card>
       </div>
 
-        {/* Footer */}
-        <Footer />
+      {/* Footer */}
+      <footer className="bg-primary border-t py-12 mt-20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <GraduationCap className="h-6 w-6 text-primary-foreground" />
+                <span className="font-bold text-primary-foreground">ExamAce Vault</span>
+              </div>
+              <p className="text-white/80 text-sm">
+                Your trusted platform for academic resources and exam preparation materials.
+              </p>
+            </div>
+            
+            {/* <div>
+              <h4 className="font-semibold text-primary-foreground mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-white/80 text-sm">
+                <li><Link to="/resources" className="hover:text-white transition-colors">All Resources</Link></li>
+                <li><Link to="/subjects" className="hover:text-white transition-colors">Browse by Subject</Link></li>
+                <li><Link to="/search" className="hover:text-white transition-colors">Advanced Search</Link></li>
+              </ul>
+            </div>
+             */}
+            <div>
+              <h4 className="font-semibold text-primary-foreground mb-4">Support</h4>
+              <ul className="space-y-2 text-white/80 text-sm">
+                <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms-conditions" className="hover:text-white transition-colors">Terms of Service</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-primary-foreground mb-4">Connect</h4>
+              <p className="text-white/80 mb-4 text-sm">
+                Stay updated with the latest resources and exam tips.
+              </p>
+              <Button className="w-full text-sm bg-white text-primary hover:bg-white/90 transition-all duration-300">
+                Subscribe to Updates
+              </Button>
+            </div>
           </div>
+          
+          <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60">
+            <p className="text-sm">&copy; 2025 ExamAce Vault. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 };
 

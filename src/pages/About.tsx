@@ -198,9 +198,13 @@ const stagger = {
               <Link to="/about" className="text-indigo-600 font-medium">About Us</Link>
               <Link to="/contact" className="text-gray-600 hover:text-indigo-600 transition-colors">Contact Us</Link>
             </nav>
-            <Button asChild>
-              <Link to="/">Back to Home</Link>
-            </Button>
+           <Button asChild>
+  <Link to="/" className="text-blue-600">
+    Back to Home
+  </Link>
+</Button>
+
+
           </div>
         </div>
       </header>
@@ -216,10 +220,10 @@ const stagger = {
             className="text-5xl md:text-6xl font-extrabold mb-6 hero-title"
           >
             About{" "}
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-500 bg-clip-text text-transparent">
-              EduMasters
-            </span>
-          </motion.h1>
+           <span className="text-blue-600">
+            EduMasters
+           </span>
+           </motion.h1>
 
           <motion.p
             className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed hero-subtitle"
@@ -449,7 +453,7 @@ const stagger = {
                 <motion.div
                   className="rounded-xl bg-white p-4 shadow-md border border-gray-100 hover:shadow-xl transition-shadow transform hover:-translate-y-1"
                 >
-                  <div className="flex items-start gap-3">
+                  {/* <div className="flex items-start gap-3">
                     <div className="w-20 h-14 flex-shrink-0 overflow-hidden rounded-md border">
                       <img src={LAPTOP_IMG} alt="paper preview" className="w-full h-full object-cover" />
                     </div>
@@ -457,13 +461,13 @@ const stagger = {
                       <h4 className="font-semibold">BCA Sem 1 — 2023</h4>
                       <p className="text-sm text-gray-500">Solved with model answers • 12 pages</p>
                     </div>
-                  </div>
+                  </div> */}
                 </motion.div>
 
                 <motion.div
                   className="rounded-xl bg-white p-4 shadow-md border border-gray-100 hover:shadow-xl transition-shadow transform hover:-translate-y-1"
                 >
-                  <div className="flex items-start gap-3">
+                  {/* <div className="flex items-start gap-3">
                     <div className="w-20 h-14 flex-shrink-0 overflow-hidden rounded-md border">
                       <img src={STACK_IMG} alt="book preview" className="w-full h-full object-cover" />
                     </div>
@@ -471,7 +475,7 @@ const stagger = {
                       <h4 className="font-semibold">DBMS — Important Qs</h4>
                       <p className="text-sm text-gray-500">High-yield questions & summaries • 8 pages</p>
                     </div>
-                  </div>
+                  </div> */}
                 </motion.div>
               </div>
 
