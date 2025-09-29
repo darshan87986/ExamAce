@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 /* Unsplash images (kept same sources) */
 const BOOK_IMG = "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1";
@@ -185,29 +186,7 @@ const stagger = {
       </div>
 
       {/* Header */}
-      <header className="border-b bg-white/60 backdrop-blur-md sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <GraduationCap className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold">EduMasters</h1>
-            </div>
-            <nav className="hidden md:flex space-x-6 text-sm">
-              <Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</Link>
-              <Link to="/universities" className="text-gray-600 hover:text-indigo-600 transition-colors">Universities</Link>
-              <Link to="/about" className="text-indigo-600 font-medium">About Us</Link>
-              <Link to="/contact" className="text-gray-600 hover:text-indigo-600 transition-colors">Contact Us</Link>
-            </nav>
-           <Button asChild>
-  <Link to="/" className="text-blue-600">
-    Back to Home
-  </Link>
-</Button>
-
-
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero */}
       <section className="relative overflow-hidden py-20" aria-label="About hero" ref={heroRef}>

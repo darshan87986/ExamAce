@@ -1,3 +1,4 @@
+
 // Contact.jsx
 "use client";
 
@@ -22,6 +23,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from 'emailjs-com';
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 const HERO_IMG = "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1";
 const TEAM_IMG = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2";
@@ -69,11 +71,11 @@ const Contact = () => {
     };
   }, [prefersReduced]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -113,33 +115,20 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white text-slate-900">
       {/* progress bar */}
-      <div className="fixed left-0 top-0 z-50 w-full h-1 pointer-events-none">
+      <div className="fixed left-0 top-0 z-50 w-full h-1 pointer-events-none" aria-hidden="false">
         <div
           className="h-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-500 transition-all duration-150"
+          role="progressbar"
+          aria-label="Scroll progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={scrollProgress}
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
 
       {/* Header */}
-      <header className="border-b bg-white/60 backdrop-blur-md sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <GraduationCap className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold">EduMasters</h1>
-            </div>
-            <nav className="hidden md:flex space-x-6 text-sm">
-              <Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</Link>
-              <Link to="/universities" className="text-gray-600 hover:text-indigo-600 transition-colors">Universities</Link>
-              <Link to="/about" className="text-gray-600 hover:text-indigo-600 transition-colors">About Us</Link>
-              <Link to="/contact" className="text-indigo-600 font-medium">Contact Us</Link>
-            </nav>
-            <Button asChild>
-              <Link to="/">Back to Home</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero */}
       <section className="relative overflow-hidden py-20">
@@ -169,69 +158,12 @@ const Contact = () => {
         </div>
 
         {/* floating images */}
-        <img ref={leftRef} src={TEAM_IMG} alt="team" className="hidden md:block absolute left-8 top-16 w-48 h-48 object-cover rounded-lg shadow-2xl transform -rotate-6 will-change-transform" style={{ transition: "transform 120ms linear" }} />
-        <img ref={rightRef} src={SUPPORT_IMG} alt="support" className="hidden md:block absolute right-8 bottom-12 w-56 h-40 object-cover rounded-lg shadow-2xl transform rotate-3 will-change-transform" style={{ transition: "transform 120ms linear" }} />
+        <img ref={leftRef} src={TEAM_IMG} alt="EduMasters team working together" loading="lazy" className="hidden md:block absolute left-8 top-16 w-48 h-48 object-cover rounded-lg shadow-2xl transform -rotate-6 will-change-transform" style={{ transition: "transform 120ms linear" }} />
+        <img ref={rightRef} src={SUPPORT_IMG} alt="Student support illustration" loading="lazy" className="hidden md:block absolute right-8 bottom-12 w-56 h-40 object-cover rounded-lg shadow-2xl transform rotate-3 will-change-transform" style={{ transition: "transform 120ms linear" }} />
       </section>
 
       {/* Contact Information */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
-          <motion.div className="grid md:grid-cols-3 gap-8 mb-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ visible: { transition: { staggerChildren: 0.08 }}}}>
-            <motion.div variants={fadeUp}>
-              <Card className="text-center group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-indigo-50">
-                <CardHeader>
-                  <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Mail className="h-8 w-8 text-indigo-600" />
-                  </div>
-                  <CardTitle className="text-xl font-bold">Email Us</CardTitle>
-                  <p className="text-sm text-muted-foreground">Send us a message anytime</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-indigo-700 font-medium mb-2">
-                    <a href="mailto:edumasters41@gmail.com" className="underline hover:text-indigo-800">edumasters41@gmail.com</a>
-                  </p>
-                  <p className="text-muted-foreground text-sm">We respond within 24 hours</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={fadeUp}>
-              <Card className="text-center group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-purple-50">
-                <CardHeader>
-                  <div className="bg-purple-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <MessageCircle className="h-8 w-8 text-purple-600" />
-                  </div>
-                  <CardTitle className="text-xl font-bold">Live Chat</CardTitle>
-                  <p className="text-sm text-muted-foreground">Chat with our team</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-purple-700 font-medium mb-2">Available 24/7</p>
-                  <p className="text-muted-foreground text-sm">Instant support and guidance</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={fadeUp}>
-              <Card className="text-center group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-emerald-50">
-                <CardHeader>
-                  <div className="bg-emerald-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <HelpCircle className="h-8 w-8 text-emerald-600" />
-                  </div>
-                  <CardTitle className="text-xl font-bold">Help Center</CardTitle>
-                  <p className="text-sm text-muted-foreground">Find answers quickly</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-emerald-700 font-medium mb-2">FAQ & Guides</p>
-                  <p className="text-muted-foreground text-sm">Self-service support</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact Form + Info */}
-      <section className="py-16 bg-gradient-to-r from-purple-50 to-rose-50">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ visible: { transition: { staggerChildren: 0.06 } } }}>
@@ -251,23 +183,23 @@ const Contact = () => {
                     <CardContent>
                       <form onSubmit={handleSubmit} className="space-y-4">
                         <motion.div whileFocus={{ scale: 1.01 }} className="grid grid-cols-1 gap-4">
-                          <label className="text-sm font-medium text-foreground">Full Name</label>
-                          <Input name="name" value={formData.name} onChange={handleChange} placeholder="Enter your full name" required className="h-12" />
+                          <label htmlFor="name" className="text-sm font-medium text-foreground">Full Name</label>
+                          <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your full name" required className="h-12" aria-required="true" aria-invalid={false} />
                         </motion.div>
 
                         <motion.div whileFocus={{ scale: 1.01 }} className="grid grid-cols-1 gap-4">
-                          <label className="text-sm font-medium text-foreground">Email Address</label>
-                          <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter your email address" required className="h-12" />
+                          <label htmlFor="email" className="text-sm font-medium text-foreground">Email Address</label>
+                          <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter your email address" required className="h-12" aria-required="true" aria-invalid={false} />
                         </motion.div>
 
                         <motion.div whileFocus={{ scale: 1.01 }} className="grid grid-cols-1 gap-4">
-                          <label className="text-sm font-medium text-foreground">Subject</label>
-                          <Input name="subject" value={formData.subject} onChange={handleChange} placeholder="What is this message about?" required className="h-12" />
+                          <label htmlFor="subject" className="text-sm font-medium text-foreground">Subject</label>
+                          <Input id="subject" name="subject" value={formData.subject} onChange={handleChange} placeholder="What is this message about?" required className="h-12" aria-required="true" aria-invalid={false} />
                         </motion.div>
 
                         <motion.div whileFocus={{ scale: 1.01 }} className="grid grid-cols-1 gap-4">
-                          <label className="text-sm font-medium text-foreground">Message</label>
-                          <Textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell us how we can help you..." required rows={6} className="resize-none" />
+                          <label htmlFor="message" className="text-sm font-medium text-foreground">Message</label>
+                          <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Tell us how we can help you..." required rows={6} className="resize-none" aria-required="true" aria-invalid={false} />
                         </motion.div>
 
                         <div>
@@ -276,6 +208,7 @@ const Contact = () => {
                             size="lg" 
                             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
                             disabled={isSubmitting}
+                            aria-busy={isSubmitting}
                           >
                             {isSubmitting ? (
                               <>

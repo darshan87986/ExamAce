@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Download, BookOpen, FileText, GraduationCap, Users, ArrowLeft, ChevronRight, MapPin, Award, TrendingUp, Star, ArrowRight, Bookmark, Clock, FileCheck } from "lucide-react";
@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { CommentSection } from "@/components/CommentSection";
+import Header from "@/components/Header";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Lenis from "@studio-freight/lenis";
@@ -547,26 +548,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-50 backdrop-blur-md bg-white/80 transition-all duration-300">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <GraduationCap className="h-8 w-8 text-primary transition-transform hover:scale-110" />
-            <h1 className="text-2xl font-bold text-black-600">
-              EduMasters
-            </h1>
-            </div>
-            
-            <nav className="hidden md:flex space-x-6">
-              <Link to="/" className="text-primary font-medium hover:text-primary/80 transition-colors">Home</Link>
-              <Link to="/universities" className="text-muted-foreground hover:text-primary transition-colors">Universities</Link>
-              <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link>
-              <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header />
+  
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
         {/* Background decorative elements */}
