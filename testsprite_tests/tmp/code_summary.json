@@ -1,0 +1,65 @@
+{
+  "tech_stack": [
+    "TypeScript",
+    "React",
+    "Vite",
+    "Tailwind CSS",
+    "Supabase",
+    "Shadcn/ui"
+  ],
+  "features": [
+    {
+      "name": "Routing and Pages",
+      "description": "Main application pages including About, Contact, Degrees, Universities, and more",
+      "files": [
+        "src/pages/About.tsx",
+        "src/pages/Contact.tsx",
+        "src/pages/Degrees.tsx",
+        "src/pages/Index.tsx",
+        "src/pages/Subjects.tsx",
+        "src/pages/Universities.tsx",
+        "src/pages/SubjectResources.tsx",
+        "src/pages/Semesters.tsx"
+      ]
+    },
+    {
+      "name": "Core Components",
+      "description": "Essential UI components for the application",
+      "files": [
+        "src/components/Header.tsx",
+        "src/components/Footer.tsx",
+        "src/components/CommentSection.tsx",
+        "src/components/SubscriptionPopup.tsx"
+      ]
+    },
+    {
+      "name": "UI Components",
+      "description": "Reusable UI components from shadcn/ui library",
+      "files": [
+        "src/components/ui/button.tsx",
+        "src/components/ui/card.tsx",
+        "src/components/ui/dialog.tsx",
+        "src/components/ui/form.tsx",
+        "src/components/ui/input.tsx",
+        "src/components/ui/select.tsx",
+        "src/components/ui/table.tsx"
+      ]
+    },
+    {
+      "name": "Hooks",
+      "description": "Custom React hooks for mobile detection and toast notifications",
+      "files": [
+        "src/hooks/use-mobile.tsx",
+        "src/hooks/use-toast.ts"
+      ]
+    },
+    {
+      "name": "Database Integration",
+      "description": "Supabase client setup and type definitions",
+      "files": [
+        "src/integrations/supabase/client.ts",
+        "src/integrations/supabase/types.ts"
+      ]
+    }
+  ]
+}

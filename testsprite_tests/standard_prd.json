@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "project": "EduMasters",
+    "date": "2025-09-13",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "EduMasters is a web-based educational platform enabling students to access and download previous year question papers, solved papers, notes, and projects through an organized and efficient search and browse interface. It includes interactive features such as a comment section to facilitate feedback and discussion on study materials.",
+  "core_goals": [
+    "Provide an easy-to-navigate search system allowing students to filter study materials by University, Course, and Semester.",
+    "Enable students to access, view, and download a variety of study materials including notes, question papers, solved papers, and projects.",
+    "Facilitate user interaction with study materials via a chronological comment system supporting both registered and guest users.",
+    "Ensure platform performance with fast search results and quick file downloads.",
+    "Maintain platform security by implementing read-only public access with admin-only write operations.",
+    "Deliver a mobile responsive and user-friendly interface compatible with various devices."
+  ],
+  "key_features": [
+    "Hierarchical filtering system: University → Course → Semester for locating resources.",
+    "Keyword search functionality for quick access to subjects and resources.",
+    "Resource types include Notes, Question Papers, Solved Papers, and Projects with metadata display (title, type, university, course, semester, upload timestamp).",
+    "Downloadable study materials through secure file URLs stored in Supabase storage.",
+    "Comment section supporting posting and displaying comments in chronological order with username visibility or Anonymous for guest users.",
+    "Mobile responsive design using React, Vite, and Tailwind CSS with animations for seamless user experience.",
+    "Backend and database managed via Supabase, including resource metadata, comments, and file storage.",
+    "Custom UI components and hooks (e.g., for mobile detection, toast notifications) to support responsive and interactive UI elements."
+  ],
+  "user_flow_summary": [
+    "User visits EduMasters homepage and selects University from a list or dropdown.",
+    "User selects Course related to the chosen University.",
+    "User selects Semester corresponding to the Course.",
+    "User optionally uses keyword search to filter subjects or specific resources.",
+    "Filtered list of resources is displayed with clear metadata and resource type indicators.",
+    "User clicks on a resource to view details and initiate download of the material.",
+    "User can read existing comments on the resource or post a new comment; guest users default to Anonymous username.",
+    "User navigates to other pages such as About, Contact, Degrees, Universities, Subjects, and Semesters via consistent header/footer components.",
+    "Mobile users experience optimized layout and responsive UI elements throughout the workflow."
+  ],
+  "validation_criteria": [
+    "Search functionality correctly filters resources by University, Course, and Semester within 2 seconds.",
+    "Search results accurately display resource types and associated metadata (title, type, university, course, semester, upload timestamp).",
+    "Resource files begin downloading within 3 seconds of user request.",
+    "Users, including guests, can successfully post comments on any resource and comments display in correct chronological order.",
+    "Comment username displays correctly or defaults to \"Anonymous\" for guest users.",
+    "All platform pages and UI components function correctly across desktop and mobile devices with responsive layouts.",
+    "Security constraints are enforced, ensuring public users have read-only access and write operations remain admin-restricted.",
+    "Database integration with Supabase correctly stores and retrieves resource metadata, comments, and file storage links."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "TypeScript",
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Supabase",
+      "Shadcn/ui"
+    ],
+    "features": [
+      {
+        "name": "Routing and Pages",
+        "description": "Main application pages including About, Contact, Degrees, Universities, and more",
+        "files": [
+          "src/pages/About.tsx",
+          "src/pages/Contact.tsx",
+          "src/pages/Degrees.tsx",
+          "src/pages/Index.tsx",
+          "src/pages/Subjects.tsx",
+          "src/pages/Universities.tsx",
+          "src/pages/SubjectResources.tsx",
+          "src/pages/Semesters.tsx"
+        ]
+      },
+      {
+        "name": "Core Components",
+        "description": "Essential UI components for the application",
+        "files": [
+          "src/components/Header.tsx",
+          "src/components/Footer.tsx",
+          "src/components/CommentSection.tsx",
+          "src/components/SubscriptionPopup.tsx"
+        ]
+      },
+      {
+        "name": "UI Components",
+        "description": "Reusable UI components from shadcn/ui library",
+        "files": [
+          "src/components/ui/button.tsx",
+          "src/components/ui/card.tsx",
+          "src/components/ui/dialog.tsx",
+          "src/components/ui/form.tsx",
+          "src/components/ui/input.tsx",
+          "src/components/ui/select.tsx",
+          "src/components/ui/table.tsx"
+        ]
+      },
+      {
+        "name": "Hooks",
+        "description": "Custom React hooks for mobile detection and toast notifications",
+        "files": [
+          "src/hooks/use-mobile.tsx",
+          "src/hooks/use-toast.ts"
+        ]
+      },
+      {
+        "name": "Database Integration",
+        "description": "Supabase client setup and type definitions",
+        "files": [
+          "src/integrations/supabase/client.ts",
+          "src/integrations/supabase/types.ts"
+        ]
+      }
+    ]
+  }
+}

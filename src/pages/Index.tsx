@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Download, BookOpen, FileText, GraduationCap, Users, ArrowLeft, ChevronRight, MapPin, Award, TrendingUp, Star, ArrowRight, Bookmark, Clock, FileCheck } from "lucide-react";
@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { CommentSection } from "@/components/CommentSection";
 import Footer from "@/components/Footer"; // Add this line
+import Header from "@/components/Header";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Lenis from "@studio-freight/lenis";
@@ -65,7 +66,7 @@ interface Stats {
   totalResources: number;
   totalUniversities: number;
   totalSubjects: number;
-  totalDownloads: number;
+  totalSolvedPapers: number;
 }
 
 interface SolvedQP {
@@ -77,6 +78,7 @@ interface SolvedQP {
   resource_type: string;
   description?: string;
   download_count?: number;
+  file_path?: string;
 }
 
 // Counter Animation Component
@@ -147,7 +149,7 @@ const Index = () => {
   const [selectedSemester, setSelectedSemester] = useState<Semester | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
   const [currentView, setCurrentView] = useState<"home" | "universities" | "degrees" | "semesters" | "subjects" | "resources">("home");
-  const [stats, setStats] = useState<Stats>({ totalResources: 0, totalUniversities: 0, totalSubjects: 0, totalDownloads: 0 });
+  const [stats, setStats] = useState<Stats>({ totalResources: 0, totalUniversities: 0, totalSubjects: 0, totalSolvedPapers: 0 });
   const [solvedQps, setSolvedQps] = useState<SolvedQP[]>([]);
 
   // Refs for animations
@@ -327,19 +329,17 @@ const Index = () => {
         .select("*", { count: "exact", head: true })
         .eq("is_active", true);
 
-      // Fetch total downloads
-      const { data: downloadData } = await supabase
-        .from("Exam-prep")
-        .select("download_count")
+      // Fetch total solved papers
+      const { count: solvedPapersCount } = await supabase
+        .from("solved-papers" as any)
+        .select("*", { count: "exact", head: true })
         .eq("is_published", true);
-
-      const totalDownloads = downloadData?.reduce((sum, item) => sum + (item.download_count || 0), 0) || 0;
 
       setStats({
         totalResources: resourceCount || 0,
         totalUniversities: universityCount || 0,
         totalSubjects: subjectCount || 0,
-        totalDownloads: totalDownloads
+        totalSolvedPapers: solvedPapersCount || 0
       });
     } catch (error) {
       console.error("Error fetching stats:", error);
@@ -426,7 +426,7 @@ const Index = () => {
         .order("semester_number");
 
       if (error) throw error;
-      setSemesters((data as Semester[]) || []);
+      setSemesters((data as any) || []);
     } catch (error) {
       console.error("Error fetching semesters:", error);
     } finally {
@@ -474,7 +474,7 @@ const Index = () => {
 
   const fetchSolvedQps = async () => {
     const { data, error } = await supabase
-      .from("solved-papers")
+      .from("solved-papers" as any)
       .select("id, title, subject, year, course, resource_type, description, download_count")
       .eq("show_in_recent", true)
       .order("created_at", { ascending: false })
@@ -484,7 +484,7 @@ const Index = () => {
       console.error("Error fetching solved QPs:", error);
       return;
     }
-    setSolvedQps(data || []);
+    setSolvedQps((data as unknown as SolvedQP[]) || []);
   };
 
   const allResources = [
@@ -558,16 +558,16 @@ const Index = () => {
     setCurrentView("universities");
   };
 
-  const handleDownload = async (resourceId: number, filePath: string, title: string) => {
+  const handleDownload = async (resourceId: string | number, filePath: string, title: string) => {
     try {
       // Increment download count
-      await supabase.rpc("increment_download_count", { resource_id: resourceId });
-      
+      await supabase.rpc("increment_download_count", { resource_id: Number(resourceId) });
+
       // Use the file path directly if it's already a full URL, otherwise construct it
-      const downloadUrl = filePath.startsWith('http') 
-        ? filePath 
+      const downloadUrl = filePath.startsWith('http')
+        ? filePath
         : supabase.storage.from("question-papers").getPublicUrl(filePath).data.publicUrl;
-      
+
       // Trigger download
       const link = document.createElement("a");
       link.href = downloadUrl;
@@ -581,25 +581,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-50 backdrop-blur-md bg-white/80 transition-all duration-300">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <GraduationCap className="h-8 w-8 text-primary transition-transform hover:scale-110" />
-              <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                EduMasters
-              </h1>
-            </div>
-            <nav className="hidden md:flex space-x-6">
-              <Link to="/" className="text-primary font-medium hover:text-primary/80 transition-colors">Home</Link>
-              <Link to="/universities" className="text-muted-foreground hover:text-primary transition-colors">Universities</Link>
-              <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link>
-              <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header />
+  
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
         {/* Background decorative elements */}
@@ -610,20 +593,18 @@ const Index = () => {
         </div>
         
         <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="mb-8">
+          {/* <div className="mb-8">
             <div className="inline-flex items-center bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 animate-bounce">
               <Star className="h-4 w-4 mr-2" />
-              {/* Trusted by thousands of students */}
+              Trusted by thousands of students
             </div>
-          </div>
+          </div> */}
           
           <h1 ref={titleRef} className="text-5xl md:text-7xl font-extrabold text-foreground mb-6 leading-tight">
-            Your Ultimate
-            <span className="text-primary bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"> Exam Success </span>
-            Platform
+            Your Ultimate <span className="text-primary">Exam Success</span> Platform
           </h1>
           
-          <p ref={subtitleRef} className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed">
+<p ref={subtitleRef} className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed">
             Access thousands of previous year question papers, solved papers, and comprehensive study notes. 
             Everything you need to excel in your degree exams, all in one place.
           </p>
@@ -641,7 +622,7 @@ const Index = () => {
           </div>
           
           {/* Stats Preview */}
-          {<div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          {/* {<div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {[
               { icon: FileText, value: `${stats.totalResources}+`, label: "Resources" },
               { icon: GraduationCap, value: `${stats.totalUniversities}+`, label: "Universities" },
@@ -654,7 +635,7 @@ const Index = () => {
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}
-          </div> }
+          </div> } */}
         </div>
       </section>
 
@@ -740,31 +721,28 @@ const Index = () => {
                       {resource.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Download className="h-4 w-4 mr-2" />
-                        <span className="font-medium">{resource.download_count || 0} downloads</span>
-                      </div>
-                      <div className="flex gap-2">
-                        {/* Download button for resources with file_path */}
-                        {resource.file_path && (
-                          <Button
-                            variant="default"
-                            size="sm"
-                            onClick={() => handleDownload(resource.id, resource.file_path, resource.title)}
-                          >
-                            Download
-                          </Button>
-                        )}
-                        {/* View button for solved QPs */}
-                        {resource.resource_type === "solved_paper" && (
-                          <Link to={`/solved/${resource.id}`}>
-                            <Button variant="default" size="sm">
-                              View
-                            </Button>
-                          </Link>
-                        )}
-                      </div>
-                    </div>
+          {/* Removed downloads display as per user request */}
+          <div className="flex gap-2">
+            {/* Download button for resources with file_path */}
+            {resource.file_path && (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => handleDownload(resource.id, resource.file_path, resource.title)}
+              >
+                Download
+              </Button>
+            )}
+            {/* View button for solved QPs */}
+            {resource.resource_type === "solved_paper" && (
+              <Link to={`/solved-article/${resource.id}`}>
+                <Button variant="default" size="sm">
+                  View
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
                   </CardContent>
                 </Card>
               ))}
@@ -783,9 +761,6 @@ const Index = () => {
           )}
         </div>
       </section>
-
-
-    
       
 
       {/* Why Choose Us Section */}
@@ -850,7 +825,7 @@ const Index = () => {
               <AnimatedCounter target={stats.totalSubjects} label="Subjects" />
             </div>
             <div className="stat-item p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105">
-              <AnimatedCounter target={stats.totalDownloads} label="Downloads" />
+              <AnimatedCounter target={stats.totalSolvedPapers} label="Solved Papers" />
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 /* Unsplash images (kept same sources) */
 const BOOK_IMG = "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1";
@@ -184,26 +185,7 @@ const stagger = {
         />
       </div>
 
-      {/* Header */}
-      <header className="border-b bg-white/60 backdrop-blur-md sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <GraduationCap className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold">EduMasters</h1>
-            </div>
-            <nav className="hidden md:flex space-x-6 text-sm">
-              <Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</Link>
-              <Link to="/universities" className="text-gray-600 hover:text-indigo-600 transition-colors">Universities</Link>
-              <Link to="/about" className="text-indigo-600 font-medium">About Us</Link>
-              <Link to="/contact" className="text-gray-600 hover:text-indigo-600 transition-colors">Contact Us</Link>
-            </nav>
-            <Button asChild>
-              <Link to="/">Back to Home</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero */}
       <section className="relative overflow-hidden py-20" aria-label="About hero" ref={heroRef}>
@@ -216,10 +198,10 @@ const stagger = {
             className="text-5xl md:text-6xl font-extrabold mb-6 hero-title"
           >
             About{" "}
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-500 bg-clip-text text-transparent">
-              EduMasters
-            </span>
-          </motion.h1>
+           <span className="text-blue-600">
+            EduMasters
+           </span>
+           </motion.h1>
 
           <motion.p
             className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed hero-subtitle"
@@ -449,7 +431,7 @@ const stagger = {
                 <motion.div
                   className="rounded-xl bg-white p-4 shadow-md border border-gray-100 hover:shadow-xl transition-shadow transform hover:-translate-y-1"
                 >
-                  <div className="flex items-start gap-3">
+                  {/* <div className="flex items-start gap-3">
                     <div className="w-20 h-14 flex-shrink-0 overflow-hidden rounded-md border">
                       <img src={LAPTOP_IMG} alt="paper preview" className="w-full h-full object-cover" />
                     </div>
@@ -457,13 +439,13 @@ const stagger = {
                       <h4 className="font-semibold">BCA Sem 1 — 2023</h4>
                       <p className="text-sm text-gray-500">Solved with model answers • 12 pages</p>
                     </div>
-                  </div>
+                  </div> */}
                 </motion.div>
 
                 <motion.div
                   className="rounded-xl bg-white p-4 shadow-md border border-gray-100 hover:shadow-xl transition-shadow transform hover:-translate-y-1"
                 >
-                  <div className="flex items-start gap-3">
+                  {/* <div className="flex items-start gap-3">
                     <div className="w-20 h-14 flex-shrink-0 overflow-hidden rounded-md border">
                       <img src={STACK_IMG} alt="book preview" className="w-full h-full object-cover" />
                     </div>
@@ -471,7 +453,7 @@ const stagger = {
                       <h4 className="font-semibold">DBMS — Important Qs</h4>
                       <p className="text-sm text-gray-500">High-yield questions & summaries • 8 pages</p>
                     </div>
-                  </div>
+                  </div> */}
                 </motion.div>
               </div>
 

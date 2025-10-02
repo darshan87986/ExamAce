@@ -105,10 +105,12 @@ const PrivacyPolicy = () => {
             </div>
             <h1 className="text-4xl font-bold text-foreground ml-4">EduMasters</h1>
           </div>
+
           <Badge variant="secondary" className="text-sm font-semibold">
             Privacy-First Educational Platform
           </Badge>
         </div>
+        
         
         <Card className="mb-8 border-2 shadow-lg">
           <CardHeader className="text-center bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-t-lg py-8">

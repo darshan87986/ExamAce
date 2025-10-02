@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Download } from "lucide-react";
+import { GraduationCap, ArrowLeft, Download } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { CommentSection } from "@/components/CommentSection";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+
 
 interface Subject {
   id: string;
@@ -58,6 +60,11 @@ const SubjectResources = () => {
   const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState("all");
 
+  useEffect(() => {
+    console.log("History length:", window.history.length);
+    console.log("Current state:", window.history.state);
+  }, []);
+  
   useEffect(() => {
     if (subjectId) {
       fetchSubject();
@@ -151,7 +158,7 @@ const SubjectResources = () => {
   };
 
   const handleSolvedClick = (qp: SolvedQP) => {
-    navigate(`/solved/${qp.id}`, { state: { qp } });
+    navigate(`/solved-article/${qp.id}`, { state: { qp } });
   };
 
   return (
@@ -176,16 +183,24 @@ const SubjectResources = () => {
       {/* Resources Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
+          {/* <div className="flex items-center gap-4 mb-8">
+            <Button
+              variant="ghost"
+              onClick={handleBackToSubjects}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Subjects
+            </Button>
+          </div> */}
           <div className="text-center mb-8">
             <h3 className="text-3xl font-bold text-foreground mb-4">
               {subject?.semesters?.degrees?.code} - {subject?.semesters?.name} - {subject?.name}
             </h3>
             <p className="text-muted-foreground">
-              Browse resources for {subject?.name}
+              Browse and download resources for {subject?.name}
             </p>
           </div>
-
-          {/* Filters */}
           <div className="flex justify-center space-x-2 mb-8">
             {[
               { key: "all", label: "All Resources" },
@@ -203,8 +218,6 @@ const SubjectResources = () => {
               </Button>
             ))}
           </div>
-
-          {/* Cards */}
           {loading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
@@ -258,7 +271,6 @@ const SubjectResources = () => {
               ))}
             </div>
           )}
-
           {!loading && filteredResources.length === 0 && (
             <div className="text-center py-12">
               <p className="text-muted-foreground text-lg">

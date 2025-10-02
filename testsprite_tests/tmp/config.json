@@ -1,0 +1,15 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:8080",
+  "executionArgs": {
+    "projectName": "EduMasters",
+    "projectPath": "c:\\Users\\prave\\Desktop\\EduMasters",
+    "testIds": [],
+    "additionalInstruction": "Please focus on testing the following key areas:\n1. Navigation between pages\n2. Responsive design using use-mobile hook\n3. UI component interactions\n4. Form submissions\n5. Data display in tables and cards",
+    "envs": {
+      "API_KEY": "sk-user-il8xE0RKmYRlv97nhx7GtQKIpDHOZd1gFqo9xbwNG0K77AolGNf8NoVL9JXWDKH4oPUJwhhPa3_DkrYAkhCpIrGKp95ViPxbqlV6sAuhkEmP4XyJUkaq-donBSeQ4MN1zYM"
+    }
+  }
+}
