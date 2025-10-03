@@ -193,15 +193,15 @@ const SubjectResources = () => {
               Back to Subjects
             </Button>
           </div> */}
-          <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold text-foreground mb-4">
+          <div className="text-center mb-8 px-4">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4">
               {subject?.semesters?.degrees?.code} - {subject?.semesters?.name} - {subject?.name}
             </h3>
-            <p className="text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground">
               Browse and download resources for {subject?.name}
             </p>
           </div>
-          <div className="flex justify-center space-x-2 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-4 mb-8">
             {[
               { key: "all", label: "All Resources" },
               { key: "question_paper", label: "Question Papers" },
@@ -212,7 +212,11 @@ const SubjectResources = () => {
                 key={type.key}
                 variant={selectedType === type.key ? "default" : "outline"}
                 onClick={() => setSelectedType(type.key)}
-                className="rounded-full"
+                className={`text-xs sm:text-sm md:text-base rounded-full py-2 px-3 sm:px-4 whitespace-nowrap ${
+                  selectedType === type.key 
+                    ? "bg-primary text-primary-foreground shadow-md" 
+                    : "bg-background hover:bg-secondary/20"
+                }`}
               >
                 {type.label}
               </Button>

@@ -18,12 +18,23 @@ interface University {
 const Universities = () => {
   const navigate = useNavigate();
   const [universities, setUniversities] = useState<University[]>([]);
+  const [filteredUniversities, setFilteredUniversities] = useState<University[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("Universities component mounted/updated. Fetching universities.");
     fetchUniversities();
   }, []);
+
+  useEffect(() => {
+    const filtered = universities.filter(university => 
+      university.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      university.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      university.location?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredUniversities(filtered);
+  }, [searchQuery, universities]);
 
   const fetchUniversities = async () => {
     console.log("Fetching universities...");
@@ -116,11 +127,36 @@ const Universities = () => {
       {/* Universities View */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Choose Your University</h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground mb-8">
               Select your university to browse available degree programs and resources
             </p>
+            
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto relative mb-12">
+              <input
+                type="text"
+                placeholder="Search by university name or code..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-6 py-4 pl-12 text-base md:text-lg rounded-2xl border-2 border-muted bg-white/80 backdrop-blur-sm shadow-lg focus:shadow-xl transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
           </div>
           {loading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -138,30 +174,40 @@ const Universities = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {universities.map((university) => (
-                <Card 
-                  key={university.id} 
-                  className="group cursor-pointer bg-gradient-to-br from-white to-gray-50/50 hover:from-white hover:to-primary/5 hover:shadow-2xl transition-all duration-500 hover:scale-105 border-0 shadow-lg hover:shadow-primary/10"
-                  onClick={() => handleUniversitySelect(university)}
-                >
-                  <CardHeader className="text-center">
-                    <MapPin className="h-16 w-16 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                    <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{university.code}</CardTitle>
-                    <CardDescription className="text-sm font-medium">{university.name}</CardDescription>
-                    {university.location && (
-                      <Badge variant="outline" className="mx-auto w-fit mt-2 border-primary/30 text-primary">
-                        {university.location}
-                      </Badge>
-                    )}
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <Button className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300">
-                      Browse {university.code} Degrees
-                      <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+              {filteredUniversities.length === 0 ? (
+                <div className="col-span-full text-center py-12">
+                  <MapPin className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-muted-foreground mb-2">No universities found</h3>
+                  <p className="text-muted-foreground">
+                    Try adjusting your search query or browse all universities
+                  </p>
+                </div>
+              ) : (
+                filteredUniversities.map((university) => (
+                  <Card 
+                    key={university.id} 
+                    className="group cursor-pointer bg-gradient-to-br from-white to-gray-50/50 hover:from-white hover:to-primary/5 hover:shadow-2xl transition-all duration-500 hover:scale-105 border-0 shadow-lg hover:shadow-primary/10"
+                    onClick={() => handleUniversitySelect(university)}
+                  >
+                    <CardHeader className="text-center">
+                      <MapPin className="h-16 w-16 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{university.code}</CardTitle>
+                      <CardDescription className="text-sm font-medium">{university.name}</CardDescription>
+                      {university.location && (
+                        <Badge variant="outline" className="mx-auto w-fit mt-2 border-primary/30 text-primary">
+                          {university.location}
+                        </Badge>
+                      )}
+                    </CardHeader>
+                    <CardContent className="text-center">
+                      <Button className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300">
+                        Browse {university.code} Degrees
+                        <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))
+              )}
             </div>
           )}
         </div>

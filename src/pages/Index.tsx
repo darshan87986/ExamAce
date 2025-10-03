@@ -185,31 +185,35 @@ const Index = () => {
     };
   }, []);
 
-  // Set up GSAP animations
+  // Set up GSAP animations for hero section (runs only once)
   useEffect(() => {
-    // Only run animations on home view
     if (currentView !== "home") return;
 
     const ctx = gsap.context(() => {
-      // Hero section animations
-      // smoother entry from bottom for title, subtitle and search
-      gsap.fromTo(
-        titleRef.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, delay: 0.12, ease: "power3.out", overwrite: true }
-      );
+      // Hero section animations (only if elements are not already animated)
+      if (titleRef.current && titleRef.current.style.opacity !== "1") {
+        gsap.fromTo(
+          titleRef.current,
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, delay: 0.12, ease: "power3.out" }
+        );
+      }
 
-      gsap.fromTo(
-        subtitleRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, delay: 0.32, ease: "power3.out", overwrite: true }
-      );
+      if (subtitleRef.current && subtitleRef.current.style.opacity !== "1") {
+        gsap.fromTo(
+          subtitleRef.current,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, delay: 0.32, ease: "power3.out" }
+        );
+      }
 
-      gsap.fromTo(
-        searchRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, delay: 0.56, ease: "power3.out", overwrite: true }
-      );
+      if (searchRef.current && searchRef.current.style.opacity !== "1") {
+        gsap.fromTo(
+          searchRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, delay: 0.56, ease: "power3.out" }
+        );
+      }
 
       // Features animation
       gsap.fromTo(".feature-item", 
@@ -277,7 +281,7 @@ const Index = () => {
     });
 
     return () => ctx.revert();
-  }, [currentView, resources]);
+  }, [currentView]); // Only re-run if view changes
 
   useEffect(() => {
     if (currentView === "home") {
@@ -830,15 +834,17 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Call to Action */}
+{/* Call to Action */}
       <div ref={ctaRef} className="flex justify-center my-12 px-4">
         <Card className="w-full max-w-4xl mx-auto shadow-2xl bg-gradient-to-r from-primary to-purple-600 text-center py-10 px-8 rounded-2xl border-0 overflow-hidden relative">
           <div className="absolute top-0 right-0 w-40 h-40 -mr-20 -mt-20 bg-white/10 rounded-full"></div>
           <div className="absolute bottom-0 left-0 w-32 h-32 -ml-16 -mb-16 bg-white/10 rounded-full"></div>
+
+
+
           
           <CardHeader className="relative z-10">
-            <CardTitle className="text-2xl font-bold mb-2 text-white">
+            <CardTitle className="text-xl sm:text-2xl font-bold mb-2 text-white">
               Ready to Get Started?
             </CardTitle>
             <CardDescription className="mb-6 text-white/80">
@@ -846,14 +852,14 @@ const Index = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="relative z-10">
-            <Link to="/universities">
+            <Link to="/universities" className="block w-full">
               <Button
                 size="lg"
-                className="bg-white text-primary px-8 py-6 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 text-lg font-semibold hover:bg-white/90"
+                className="w-full sm:w-auto flex items-center justify-center bg-white text-primary px-6 sm:px-8 py-4 sm:py-6 rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 text-base sm:text-lg font-semibold hover:bg-white/90"
               >
-                <MapPin className="h-6 w-6 mr-3" />
+                <MapPin className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3" />
                 Choose Your University
-                <ArrowRight className="h-5 w-5 ml-2" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2" />
               </Button>
             </Link>
           </CardContent>
